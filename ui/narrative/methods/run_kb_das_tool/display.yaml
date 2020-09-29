@@ -1,0 +1,139 @@
+#
+# define display information
+#
+name     : Optimize Bacterial or Archaeal Binned Contigs using DAS Tool - v1.1.2
+subtitle : Optimize bacterial or archaeal genome bins using a dereplication, aggregation and scoring strategy
+tooltip  : Optimize bacterial or archaeal genome bins using a dereplication, aggregation and scoring strategy
+
+icon: dastool.png
+
+screenshots:
+    - dastool-logo.png
+    - dastool-output.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            [kb_maxbin, kbase-metabat, kb_concoct]
+        next:
+            [kb_Msuite]
+    methods:
+        related:
+            []
+        next:
+            ["kb_Msuite.run_checkM_lineage_wf"]
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    assembly_ref :
+        ui-name : Assembly
+        short-hint : Metagenome assembly object
+        long-hint  : Input metagenome assembly to be used for binning
+
+    input_binned_contig_names :
+        ui-name : Input Binned Contigs
+        short-hint : Input BinnedContig object names
+        long-hint  : The name of the input BinnedContig objects
+
+    output_binned_contig_name :
+        ui-name : Output Binned Contigs
+        short-hint : Output BinnedContig object name
+        long-hint  : The name of the output bin object
+
+    search_engine :
+        ui-name : Gene Identification Tool
+        short-hint : use diamond (faster) or blast for single copy gene identification (default diamond)
+        long-hint  : use diamond (faster) or blast for single copy gene identification (default diamond)
+
+    score_threshold :
+        ui-name : Score Threshold
+        short-hint : score threshold (default 0.5)
+        long-hint  : score threshold until selection algorithm will keep selecting bins (default 0.5)
+
+    duplicate_penalty :
+        ui-name : Duplicate Penalty
+        short-hint : duplicate penalty (default 0.6)
+        long-hint  : penalty for duplicate single copy genes per bin (weight b; default 0.6)
+
+    megabin_penalty :
+        ui-name : Megabin Penalty
+        short-hint : megabin penalty (default 0.5)
+        long-hint  : penalty for megabins (weight c; default 0.5)
+
+    write_bin_evals :
+        ui-name : Write Bin Evals
+        short-hint : write evaluation for each input bin set (default yes)
+        long-hint  : write evaluation for each input bin set (default yes)
+
+    create_plots :
+        ui-name : Create Plots
+        short-hint : Create binning performance plots (default yes)
+        long-hint  : Create binning performance plots (default yes)
+
+description : |
+    <p>DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly.</p>
+    <p><hr></p>
+    <p><hr></p>
+    <p><i>Implemented for KBase by <a href="mailto:sjungbluth@lbl.gov">Sean Jungbluth(sjungbluth@lbl.gov)</a></i></p>
+    <p><hr></p>
+    <p>DAS Tool takes metagenome "bins" generated from the same assembly, but using different genome binning tools, and optimizes their content using a dereplication, aggregation and scoring strategy.</p>
+    <p><hr></p>
+    <p><b>Configuration:</b></p>
+    <p><b><i>Assembly Object:</i></b> The Assembly object is a collection of assembled genome fragments, called "contigs".  These are part of the input file required for DAS Tool to run.  Currently only a single Assembly object is accepted by the DAS Tool App.</p>
+    <p><b><i>Input BinnedContig Object Names:</i></b> The BinnedContig Objects represents the different genome binning tool output binned contigs to be used for input to DAS Tool. </p>
+    <p><b><i>Output BinnedContig Object Name:</i></b> The output BinnedContig Object is produced by DAS Tool.</p>
+    <p><hr></p>
+    <p><b>Output:</b></p>
+    <p><b><i>Output Object:</i></b>The BinnedContig Object represents the directory of binned contigs created by DAS Tool. This object can be used for downstream analysis.</p>
+    <p><b><i>Output Bin Summary Report:</i></b>The number of bins produced, the number of contigs that were binned and the total number of contigs in the assembly.</p>
+    <p><b><i>Downloadable files:</i></b> The enitre output of the DAS Tool run may be downloaded as a zip file. </p>
+
+publications:
+    -
+        pmid : 29807988
+        display-text : |
+            Sieber CMK, Probst AJ, Sharrar A, Thomas BC, Hess M, Tringe SG, Banfield JF. Recovery of genomes from metagenomes via a dereplication, aggregation and scoring strategy. 2018; 3(7): 836-843. doi:10.1038/s41564-018-0171-1
+        link: https://doi.org/10.1038/s41564-018-0171-1
+
+    -
+        display-text : |
+            DAS_Tool source:
+        link: https://github.com/cmks/DAS_Tool
+
+    -
+        pmid: 20211023
+        display-text: |
+            Hyatt D, Chen G-L, LoCascio PF, Land ML, Larimer FW, Hauser LJ. Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC Bioinformatics. 2010;11: 119. doi:10.1186/1471-2105-11-119
+        link: https://www.ncbi.nlm.nih.gov/pubmed/20211023
+
+    -
+        pmid: 20003500
+        display-text: |
+            Camacho C, Coulouris G, Avagyan V, Ma N, Papadopoulos J, Bealer K, Madden TL. BLAST+: architecture and applications. BMC Bioinformatics. 2009;10: 421. doi:10.1186/1471-2105-10-421
+        link: https://www.ncbi.nlm.nih.gov/pubmed/20211023
+
+    -
+        pmid: 25402007
+        display-text: |
+            Buchfink B, Xie C, Huson DH. Fast and sensitive protein alignment using DIAMOND. Nature Methods. 2015;12: 59-60. doi:10.1038/nmeth.3176
+        link: https://www.ncbi.nlm.nih.gov/pubmed/25402007
+
+    -
+        display-text : |
+            Pullseq:
+        link: https://github.com/bcthomas/pullseq
+
+    -
+        display-text: |
+            R: A Language and Environment for Statistical Computing:
+        link: http://www.R-project.org/
+
+    -
+        display-text: |
+            Ruby: A Programmers Best Friend:
+        link: https://www.ruby-lang.org

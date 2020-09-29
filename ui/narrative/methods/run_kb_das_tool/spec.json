@@ -1,0 +1,214 @@
+{
+    "ver": "1.0.4",
+    "authors": [
+        "seanjungbluth"
+    ],
+    "contact": "help@kbase.us",
+    "visible" : true,
+    "categories": ["active","assembly","communities"],
+    "widgets": {
+        "input": "kbaseNarrativeMethodInput",
+        "output" : "no-display"
+    },
+    "parameters": [
+        {
+            "id": "assembly_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types" : ["KBaseGenomes.ContigSet", "KBaseGenomeAnnotations.Assembly"]
+            }
+        },
+        {
+            "id": "input_binned_contig_names",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": true,
+            "default_values": [ "" ],
+            "field_type" : "text",
+            "text_options" : {
+                "valid_ws_types" : [ "KBaseMetagenomes.BinnedContigs" ],
+                "is_output_name" : false
+            }
+        },
+        {
+            "id": "output_binned_contig_name",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "dastool.BinnedContigs" ],
+            "field_type" : "text",
+            "text_options" : {
+                "valid_ws_types" : [ "KBaseMetagenomes.BinnedContigs" ],
+                "is_output_name" : true
+            }
+        },
+        {
+            "id" : "search_engine",
+            "optional" : false,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "diamond" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [{
+                  "value": "diamond",
+                  "display": "diamond (default; faster)"
+                },
+                {
+                  "value": "blast",
+                  "display": "blast"
+                }
+              ]
+            }
+        },
+        {
+          "id": "score_threshold",
+          "optional": false,
+          "advanced": true,
+          "allow_multiple": false,
+          "default_values": [ 0.5 ],
+          "field_type": "text",
+          "text_options": {
+              "min_int" : 0,
+              "max_int" : 1,
+              "validate_as" : "float"
+            }
+        },
+        {
+          "id": "duplicate_penalty",
+          "optional": false,
+          "advanced": true,
+          "allow_multiple": false,
+          "default_values": [ 0.6 ],
+          "field_type": "text",
+          "text_options": {
+              "min_int" : 0,
+              "max_int" : 3,
+              "validate_as" : "float"
+            }
+        },
+        {
+          "id": "megabin_penalty",
+          "optional": false,
+          "advanced": true,
+          "allow_multiple": false,
+          "default_values": [ 0.5 ],
+          "field_type": "text",
+          "text_options": {
+              "min_int" : 0,
+              "max_int" : 3,
+              "validate_as" : "float"
+            }
+        },
+        {
+          "id": "write_bin_evals",
+          "optional": false,
+          "advanced": true,
+          "allow_multiple": false,
+          "default_values": [ 1 ],
+          "field_type": "checkbox",
+          "checkbox_options": {
+              "checked_value": 1,
+              "unchecked_value": 0
+            }
+        },
+        {
+          "id": "create_plots",
+          "optional": true,
+          "advanced": true,
+          "allow_multiple": false,
+          "default_values": [ 1 ],
+          "field_type": "checkbox",
+          "checkbox_options": {
+              "checked_value": 1,
+              "unchecked_value": 0
+            }
+        }
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "kb_das_tool",
+            "method": "run_kb_das_tool",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace_name"
+                },
+                {
+                    "input_parameter": "assembly_ref",
+                    "target_type_transform": "resolved-ref",
+                    "target_property": "assembly_ref"
+                },
+                {
+                    "input_parameter": "input_binned_contig_names",
+                    "target_type_transform": "list<ref>",
+                    "target_property": "input_binned_contig_names"
+                },
+                {
+                    "input_parameter": "output_binned_contig_name",
+                    "target_property": "output_binned_contig_name"
+                },
+                {
+                    "input_parameter": "search_engine",
+                    "target_property": "search_engine"
+                },
+                {
+                    "input_parameter": "score_threshold",
+                    "target_property": "score_threshold"
+                },
+                {
+                    "input_parameter": "duplicate_penalty",
+                    "target_property": "duplicate_penalty"
+                },
+                {
+                    "input_parameter": "megabin_penalty",
+                    "target_property": "megabin_penalty"
+                },
+                {
+                    "input_parameter": "write_bin_evals",
+                    "target_property": "write_bin_evals"
+                },
+                {
+                    "input_parameter": "create_plots",
+                    "target_property": "create_plots"
+                }
+            ],
+            "output_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "wsName"
+                },
+                {
+                    "service_method_output_path": [0, "result_directory"],
+                    "target_property": "result_directory"
+                },
+                {
+                    "service_method_output_path": [0,"binned_contig_obj_ref"],
+                    "target_property": "binned_contig_obj_ref"
+                },
+                {
+                    "service_method_output_path": [0,"binned_contig_obj_ref"],
+                    "target_property": "objRef"
+                },
+                {
+                    "service_method_output_path": [0, "report_name"],
+                    "target_property": "report_name"
+                },
+                {
+                    "service_method_output_path": [0, "report_ref"],
+                    "target_property": "report_ref"
+                },
+                {
+                    "constant_value": "16",
+                    "target_property": "report_window_line_height"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

@@ -1,0 +1,14 @@
+module-name:
+    kb_das_tool
+
+module-description:
+    A KBase module
+
+service-language:
+    python
+
+module-version:
+    1.0.4
+
+owners:
+    [seanjungbluth, suminw]
