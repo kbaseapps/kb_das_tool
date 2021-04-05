@@ -86,12 +86,11 @@ class kb_das_tool:
 
         das_tool_runner = DASToolUtil(self.config)
 
-        # returnVal can be "NULL" if no bins returned; otherwise a dict is expected
         returnVal = das_tool_runner.run_das_tool(params)
         #END run_kb_das_tool
-        print("returnVal is type {} and {}".format(type(returnVal),returnVal))
+
         # At some point might do deeper type checking...
-        if returnVal != "NULL" and not isinstance(returnVal, dict):
+        if not isinstance(returnVal, dict):
             raise ValueError('Method run_kb_das_tool return value ' +
                              'returnVal is not type dict as required.')
         # return the results

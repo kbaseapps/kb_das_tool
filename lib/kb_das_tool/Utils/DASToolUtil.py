@@ -557,7 +557,9 @@ class DASToolUtil:
         # check to make sure bins were generated, otherwise no need to run the rest
         if not os.path.exists(task_params['bin_result_directory']):
             log('DAS_Tool did not succeed in generating a set of bins using the input bins and parameters - skipping the creation of a new BinnedContig object.')
-            returnVal = "NULL"
+            log('Note: this result is sometimes expected using the DAS-Tool workflow; it is possible that DAS-Tool cannot optimize the input binned contigs.')
+            log('KBase is aware of this error!')
+            log('Currently KBase manages this run instance as an error because KBase is expecting an output set of binned contigs.')
         else:
             self.make_binned_contig_summary_file_for_binning_apps(task_params)
 
