@@ -5,6 +5,10 @@ ToDo
 -----
 * Update documentation and inline comments
 
+1.0.5
+-----
+* More messaging during runs where no bins produced
+
 1.0.4
 -----
 * Switched to release version 1.1.2
