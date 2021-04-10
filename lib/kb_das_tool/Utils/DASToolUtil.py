@@ -560,7 +560,7 @@ class DASToolUtil:
             log('Note: this result is sometimes expected using the DAS-Tool workflow; it is possible that DAS-Tool cannot optimize the input binned contigs.')
             log('KBase is aware of this error!')
             log('Currently KBase manages this run instance as an error because KBase is expecting an output set of binned contigs.')
-            raise ValueError('No bins generated - this is one of the expected results when DAS-Tool cannot optimize the input bins, and not necessarily an error. KBase is aware of the issue where DAS-Tool does not produce any output bins.')
+            raise ValueError('No bins generated - this is one of the expected results when DAS-Tool cannot optimize the input bins, and not necessarily an error. KBase is aware of the issue where DAS-Tool run successfully but does not produce any output set of optimized bins.')
         else:
             self.make_binned_contig_summary_file_for_binning_apps(task_params)
 
