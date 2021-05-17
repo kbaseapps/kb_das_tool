@@ -301,18 +301,19 @@ class DASToolUtil:
         generate_command: generate renamed bins
         """
         log("\n\nRunning rename_and_standardize_bin_names")
+        i = 0
         path_to_result_bins = os.path.join(self.scratch, self.BINNER_RESULT_DIRECTORY, "das_tool_output_dir_DASTool_bins")
-        for dirname, subdirs, files in os.walk(path_to_result_bins):
-            for file in files:
-                if file.endswith('.fa'):
-                    os.rename(os.path.abspath(path_to_result_bins) + '/' +
-                              file, os.path.abspath(path_to_result_bins) + '/bin.' +
-                              file.split('.')[-2].zfill(3) + '.fasta')  # need to change to 4 digits
-                if file.endswith('_sub.fasta'):
-                    os.rename(os.path.abspath(path_to_result_bins) + '/' +
-                              file, os.path.abspath(path_to_result_bins) + '/bin.' +
-                              file.split('_sub.fasta')[0] + '.fasta')
-
+        path_to_das_tool_key = os.path.abspath(path_to_result_bins) + '/das_tool_name_key.tsv'
+        with open(path_to_das_tool_key, 'w+') as f:
+            f.write("Original.Bin.Name\tRenamed.Bin.Name\n")
+            for dirname, subdirs, files in os.walk(path_to_result_bins):
+                for file in files:
+                    if file.endswith('.fa'):
+                        i += 1
+                        os.rename(os.path.abspath(path_to_result_bins) + '/' + file,
+                                  os.path.abspath(path_to_result_bins) + '/bin.' + str(i).zfill(3) + '.fasta')  # need to change to 4 digits
+                        f.write(file + '\tbin.' + str(i).zfill(3) + '.fasta\n')
+        f.close()
 
     def make_binned_contig_summary_file_for_binning_apps(self, task_params):
         """
