@@ -308,7 +308,10 @@ class DASToolUtil:
                     os.rename(os.path.abspath(path_to_result_bins) + '/' +
                               file, os.path.abspath(path_to_result_bins) + '/bin.' +
                               file.split('.')[-2].zfill(3) + '.fasta')  # need to change to 4 digits
-
+                if file.endswith('_sub.fasta'):
+                    os.rename(os.path.abspath(path_to_result_bins) + '/' +
+                              file, os.path.abspath(path_to_result_bins) + '/bin.' +
+                              file.split('_sub.fasta')[0] + '.fasta')
 
 
     def make_binned_contig_summary_file_for_binning_apps(self, task_params):

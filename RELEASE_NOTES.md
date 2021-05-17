@@ -5,6 +5,10 @@ ToDo
 -----
 * Update documentation and inline comments
 
+1.0.6
+-----
+* Bug fix to manage use cases where DAS-Tool outputs bins with suffix "_sub.fasta"
+
 1.0.5
 -----
 * More messaging during runs where no bins produced
