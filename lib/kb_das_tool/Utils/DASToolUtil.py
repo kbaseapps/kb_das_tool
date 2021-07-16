@@ -313,7 +313,6 @@ class DASToolUtil:
                         os.rename(os.path.abspath(path_to_result_bins) + '/' + file,
                                   os.path.abspath(path_to_result_bins) + '/bin.' + str(i).zfill(3) + '.fasta')  # need to change to 4 digits
                         f.write(file + '\tbin.' + str(i).zfill(3) + '.fasta\n')
-        f.close()
 
     def make_binned_contig_summary_file_for_binning_apps(self, task_params):
         """
@@ -337,7 +336,6 @@ class DASToolUtil:
                         f.write('{}\t0\t{}\t{}\n'.format(genome_bin_fna_file.split("/")[-1],
                                                          bbstats_output['contig_bp'],
                                                          bbstats_output['gc_avg']))
-        f.close()
         log('Finished make_binned_contig_summary_file_for_binning_apps function')
 
     #
@@ -550,8 +548,6 @@ class DASToolUtil:
         os.chdir(result_directory)
         self.run_command(command)
 
-        self.rename_and_standardize_bin_names()
-
         os.chdir(self.scratch)
 
         task_params = {}
@@ -564,8 +560,9 @@ class DASToolUtil:
             log('Note: this result is sometimes expected using the DAS-Tool workflow; it is possible that DAS-Tool cannot optimize the input binned contigs.')
             log('KBase is aware of this error!')
             log('Currently KBase manages this run instance as an error because KBase is expecting an output set of binned contigs.')
-            raise ValueError('No bins generated - this is one of the expected results when DAS-Tool cannot optimize the input bins, and not necessarily an error. KBase is aware of the issue where DAS-Tool run successfully but does not produce any output set of optimized bins.')
+            raise ValueError('No bins generated - this is one of the expected results when DAS-Tool cannot optimize the input bins, and not necessarily an error. KBase is aware of the issue where DAS-Tool runs successfully but does not produce any output set of optimized bins.')
         else:
+            self.rename_and_standardize_bin_names()
             self.make_binned_contig_summary_file_for_binning_apps(task_params)
 
             generate_binned_contig_param = {
